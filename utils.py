@@ -1,5 +1,6 @@
 import json
-from typing import TypedDict
+from typing import TypedDict, Iterator
+from more_itertools import chunked
 
 
 class Book(TypedDict):
@@ -11,7 +12,7 @@ class Book(TypedDict):
     genres: str
 
 
-def get_books(metadata_path: str) -> list[Book]:
+def get_books(metadata_path: str) -> Iterator[list[Book]]:
     with open(metadata_path, "r") as f:
         books = json.load(f)
-    return books
+    return chunked(books, len(books) // 2)
