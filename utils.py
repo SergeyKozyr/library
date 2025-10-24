@@ -22,20 +22,20 @@ def split_in_chunks(iterable: Sequence, chunks: int) -> Iterator[list[Book]]:
     return chunked(iterable, chunks)
 
 
-def load_books(chunks: int) -> Iterator[list[Book]]:
+def load_books(max_books_per_page: int) -> list[list[Book]]:
     with open(METADATA_PATH, "r") as f:
         books = json.load(f)
-    return split_in_chunks(books, chunks)
+    return list(split_in_chunks(books, max_books_per_page))
 
 
 def render_pages():
     os.makedirs("pages", exist_ok=True)
     template = ENV.get_template("template.html")
-    books = load_books(20)
+    paginated_books = load_books(max_books_per_page=15)
 
-    for index, page in enumerate(books, start=1):
-        paginated_books = split_in_chunks(page, 2)
-        rendered_page = template.render(books=paginated_books)
+    for index, page in enumerate(paginated_books, start=1):
+        books = split_in_chunks(page, 2)
+        rendered_page = template.render(books=books, total_pages=len(paginated_books), current_page=index)
 
         with open(f"pages/index{index}.html", "w", encoding="utf8") as file:
             file.write(rendered_page)
