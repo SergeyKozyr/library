@@ -13,18 +13,18 @@
 	</head>
 	<body>
 		<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
-				<li class="page-item {% if current_page == 1 %} disabled {% endif %}">
+			<ul class="pagination justify-content-center pt-3">
+				<li class="page-item {% if current_page == 1 %} disabled {% endif %} border border-primary rounded-left">
 					<a class="page-link" href="index{{ current_page - 1 }}.html">Назад</a>
 				</li>
 
 				{% for page_num in range(1, total_pages + 1) %}
-					<li class="page-item {% if page_num == current_page %} active {% endif %}">
+					<li class="page-item {% if page_num == current_page %} active {% endif %} border border-primary">
 						<a class="page-link" href="index{{ page_num }}.html">{{ page_num }}</a>
 					</li>
 				{% endfor %}
 
-				<li class="page-item {% if current_page == total_pages %} disabled {% endif %}">
+				<li class="page-item {% if current_page == total_pages %} disabled {% endif %} border border-primary rounded-right">
 					<a class="page-link" href="index{{ current_page + 1 }}.html">Вперёд</a>
 				</li>
 			</ul>
