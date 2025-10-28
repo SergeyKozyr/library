@@ -1,5 +1,5 @@
 # Онлайн библиотека
-![img.png](img/preview.png)
+![img.png](media/img/preview.png)
 - Ссылка на сайт - https://sergeykozyr.github.io/library/pages/index1.html
 
 ## Оффлайн запуск
